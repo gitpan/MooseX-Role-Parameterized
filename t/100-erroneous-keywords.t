@@ -1,13 +1,17 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More tests => 5;
 
 use Test::Exception;
 
 do {
     package MyRole::Storage;
     use MooseX::Role::Parameterized;
+
+    ::throws_ok {
+        parameter()
+    } qr/^You must provide a name for the parameter/;
 
     role {
         ::throws_ok {
@@ -19,6 +23,9 @@ do {
         ::throws_ok {
             augment()
         } qr/^Roles cannot support 'augment'/;
+        ::throws_ok {
+            parameter()
+        } qr/^'parameter' may not be used inside of the role block/;
     };
 };
 

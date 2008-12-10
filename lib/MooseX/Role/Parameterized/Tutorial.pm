@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Tutorial;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 confess "Don't use this module, read it!";
 
@@ -11,7 +11,7 @@ MooseX::Role::Parameterized::Tutorial - why and how
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 MOTIVATION
 
@@ -26,10 +26,10 @@ you don't want or need (see L<Moose::Cookbook::Roles::Recipe2> for more
 about C<alias> and C<excludes>).
 
 Because roles serve many different masters, they usually provide only the least
-common denominator of functionality. Not all consumers of a role have a C<>.
-Thus, more configurability than C<alias> and C<excludes> is required. Perhaps
-your role needs to know which method to call when it is done. Or what default
-value to use for its url attribute.
+common denominator of functionality. To empower roles further, more
+configurability than C<alias> and C<excludes> is required. Perhaps your role
+needs to know which method to call when it is done. Or what default value to
+use for its url attribute.
 
 Parameterized roles offer exactly this solution.
 
@@ -66,9 +66,9 @@ then passed to...
 =head3 C<role>
 
 C<role> takes a block of code that will be used to generate your role with its
-parameters bound. Here is where you put your regular role code: use C<has>,
-method modifiers, and so on. You receive as an argument the parameter object
-constructed by C<with>. You can access the parameters just like regular
+parameters bound. Here is where you declare parameterized components: use
+C<has>, method modifiers, and so on. You receive as an argument the parameter
+object constructed by C<with>. You can access the parameters just like regular
 attributes on that object (assuming you declared them readable).
 
 Each time you compose this parameterized role, the role {} block will be

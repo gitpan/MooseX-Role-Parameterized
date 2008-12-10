@@ -1,3 +1,4 @@
+Changes
 LICENSE
 MANIFEST
 META.yml
@@ -21,4 +22,8 @@ t/009-override-super.t
 t/010-blessed-confess.t
 t/011-reference-parameters.t
 t/012-rename-role.t
+t/013-does.t
+t/014-compose-parameterizable.t
+t/015-compose-keywords.t
 t/100-erroneous-keywords.t
+t/101-alias-excludes.t

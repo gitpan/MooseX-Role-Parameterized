@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Moose;
 extends 'Moose::Meta::Role';
@@ -30,8 +30,11 @@ sub add_parameter {
     my $self = shift;
     my $name = shift;
 
+    confess "You must provide a name for the parameter"
+        if !defined($name);
+
     # need to figure out a plan for these guys..
-    confess "The parameter name ($name) is currently forbidden."
+    confess "The parameter name ($name) is currently forbidden"
         if $name eq 'alias'
         || $name eq 'excludes';
 
@@ -44,7 +47,7 @@ sub construct_parameters {
 
     # need to figure out a plan for these guys..
     for my $name ('alias', 'excludes') {
-        confess "The parameter name ($name) is currently forbidden."
+        confess "The parameter name ($name) is currently forbidden"
             if exists $args{$name};
     }
 
@@ -63,6 +66,9 @@ sub generate_role {
     my $role = $self->parameterized_role_metaclass->create_anon_role(parameters => $parameters);
 
     local $MooseX::Role::Parameterized::CURRENT_METACLASS = $role;
+
+    $self->apply_parameterizable_role($role);
+
     $self->role_generator->($parameters,
         operating_on => $role,
     );
@@ -79,6 +85,12 @@ sub apply {
     $role->apply($class, %args);
 }
 
+sub apply_parameterizable_role {
+    my $self = shift;
+
+    $self->SUPER::apply(@_);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
@@ -92,7 +104,7 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 DESCRIPTION
 

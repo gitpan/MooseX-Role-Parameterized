@@ -9,10 +9,10 @@ WriteMakefile(
   NAME      => 'MooseX::Role::Parameterized',
   AUTHOR    => 'Shawn\ M\ Moore\ \<sartak\@bestpractical\.com\>',
   ABSTRACT  => 'parameterized roles',
-  VERSION   => '0.01',
+  VERSION   => '0.02',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
-    "Moose" => '0.62',
+    "Moose" => '0.63',
   },
 );
