@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Parameters;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose;
 
@@ -16,7 +16,7 @@ MooseX::Role::Parameterized::Parameters - base class for parameters
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 DESCRIPTION
 

@@ -1,21 +1,27 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose;
 extends 'Moose::Meta::Role';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterized;
+use MooseX::Role::Parameterized::Meta::Parameter;
 use MooseX::Role::Parameterized::Parameters;
 
 use constant parameterized_role_metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterized';
+use constant parameter_metaclass => 'MooseX::Role::Parameterized::Meta::Parameter';
+use constant parameters_class => 'MooseX::Role::Parameterized::Parameters';
 
-has parameter_metaclass => (
+has parameters_metaclass => (
     is      => 'rw',
     isa     => 'Moose::Meta::Class',
     lazy    => 1,
     default => sub {
-        Moose::Meta::Class->create_anon_class(
-            superclasses => ['MooseX::Role::Parameterized::Parameters'],
+        my $self = shift;
+
+        $self->parameters_class->meta->create_anon_class(
+            superclasses        => [$self->parameters_class],
+            attribute_metaclass => $self->parameter_metaclass,
         );
     },
 );
@@ -38,7 +44,7 @@ sub add_parameter {
         if $name eq 'alias'
         || $name eq 'excludes';
 
-    $self->parameter_metaclass->add_attribute($name => @_);
+    $self->parameters_metaclass->add_attribute($name => @_);
 }
 
 sub construct_parameters {
@@ -51,7 +57,7 @@ sub construct_parameters {
             if exists $args{$name};
     }
 
-    $self->parameter_metaclass->new_object(\%args);
+    $self->parameters_metaclass->new_object(\%args);
 }
 
 sub generate_role {
@@ -104,7 +110,7 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 DESCRIPTION
 

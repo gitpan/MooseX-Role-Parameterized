@@ -6,6 +6,7 @@ Makefile.PL
 README
 dist.ini
 lib/MooseX/Role/Parameterized.pm
+lib/MooseX/Role/Parameterized/Meta/Parameter.pm
 lib/MooseX/Role/Parameterized/Meta/Role/Parameterizable.pm
 lib/MooseX/Role/Parameterized/Meta/Role/Parameterized.pm
 lib/MooseX/Role/Parameterized/Parameters.pm
@@ -25,5 +26,6 @@ t/012-rename-role.t
 t/013-does.t
 t/014-compose-parameterizable.t
 t/015-compose-keywords.t
+t/016-trait.t
 t/100-erroneous-keywords.t
 t/101-alias-excludes.t

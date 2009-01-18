@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose (
     extends => { -as => 'moose_extends' },
@@ -189,7 +189,7 @@ MooseX::Role::Parameterized - parameterized roles
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -197,7 +197,6 @@ version 0.02
     use MooseX::Role::Parameterized;
 
     parameter name => (
-        is       => 'ro',
         isa      => 'Str',
         required => 1,
     );
@@ -240,8 +239,9 @@ Your parameterized role consists of two things: parameter declarations and a
 C<role> block.
 
 Parameters are declared using the L</parameter> keyword which very much
-resembles L<Moose/has>. You can use any option that L<Moose/has> accepts.
-These parameters will get their values when the consuming class (or role) uses
+resembles L<Moose/has>. You can use any option that L<Moose/has> accepts. The
+default value for the "is" option is "ro" as that's a very common case. These
+parameters will get their values when the consuming class (or role) uses
 L<Moose/with>. A parameter object will be constructed with these values, and
 passed to the C<role> block.
 

@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Tutorial;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 confess "Don't use this module, read it!";
 
@@ -11,7 +11,7 @@ MooseX::Role::Parameterized::Tutorial - why and how
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 MOTIVATION
 
@@ -53,15 +53,14 @@ exactly like specifying the attributes of a class. Instead of C<has> you use
 the keyword C<parameter>, but your parameters can use any options to C<has>.
 
     parameter 'delegation' => (
-        is        => 'ro',
         isa       => 'HashRef|ArrayRef|RegexpRef',
         predicate => 'has_delegation',
     );
 
 Behind the scenes, C<parameter> uses C<has> to add attributes to a parameter
-class. The arguments to C<with> are used to construct a parameter object, which
-has the attributes specified by calls to C<parameter>. The parameter object is
-then passed to...
+class (except the "is" option defaults to "ro" for convenience). The arguments
+to C<with> are used to construct a parameter object, which has the attributes
+specified by calls to C<parameter>. The parameter object is then passed to...
 
 =head3 C<role>
 
@@ -76,9 +75,9 @@ executed. It will receive a new parameter object and produce an entirely new
 role.
 
 Due to limitations inherent in Perl, you must declare methods with
-C<method name => sub { ... }> instead of the usual C<sub name { ... }>. Your
-methods may, of course, close over the parameter object. This means that your
-methods may use parameters however they wish!
+C<< method name => sub { ... } >> instead of the usual C<sub name { ... }>.
+Your methods may, of course, close over the parameter object. This means that
+your methods may use parameters however they wish!
 
 =head1 IMPLEMENTATION NOTES
 
@@ -95,7 +94,6 @@ You can rename methods with core Moose, but now you can rename attributes. You
 can now also choose type, default value, whether it's required, B<traits>, etc.
 
     parameter traits => (
-        is      => 'ro',
         isa     => 'ArrayRef[Str]',
         default => sub { [] },
     );
@@ -112,7 +110,6 @@ require that you specify a method name you wish the role to instrument, or
 which attributes to dump to a file.
 
     parameter instrument_method => (
-        is       => 'ro',
         isa      => 'Str',
         required => 1,
     );
@@ -126,7 +123,6 @@ operate. For example, you can tell the role whether to save intermediate
 states.
 
     parameter save_intermediate => (
-        is      => 'ro',
         isa     => 'Bool',
         default => 0,
     );
@@ -143,8 +139,7 @@ Your role may be able to freeze and thaw your instances using L<YAML>, L<JSON>,
 L<Storable>. Which backend to use can be a parameter.
 
     parameter format => (
-        is => 'ro',
-        isa => (enum ['Storable', 'YAML', 'JSON']),
+        isa     => (enum ['Storable', 'YAML', 'JSON']),
         default => 'Storable',
     );
 

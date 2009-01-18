@@ -6,5 +6,5 @@ generated_by: Dist::Zilla::Plugin::MetaYaml version 1.003
 license: perl
 name: MooseX-Role-Parameterized
 requires: 
-  Moose: 0.63
-version: 0.02
+  Moose: 0.64
+version: 0.03
