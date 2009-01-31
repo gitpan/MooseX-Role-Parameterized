@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Moose;
 extends 'Moose::Meta::Role';
@@ -61,10 +61,12 @@ sub construct_parameters {
 }
 
 sub generate_role {
-    my $self = shift;
+    my $self     = shift;
+    my %args     = @_;
 
-    my $parameters = @_ == 1 ? shift
-                             : $self->construct_parameters(@_);
+    my $parameters = blessed($args{parameters})
+                   ? $args{parameters}
+                   : $self->construct_parameters(%{ $args{parameters} });
 
     confess "A role generator is required to generate roles"
         unless $self->has_role_generator;
@@ -77,18 +79,23 @@ sub generate_role {
 
     $self->role_generator->($parameters,
         operating_on => $role,
+        consumer     => $args{consumer},
     );
 
     return $role;
 }
 
 sub apply {
-    my $self  = shift;
-    my $class = shift;
-    my %args  = @_;
+    my $self     = shift;
+    my $consumer = shift;
+    my %args     = @_;
 
-    my $role = $self->generate_role(%args);
-    $role->apply($class, %args);
+    my $role = $self->generate_role(
+        consumer   => $consumer,
+        parameters => \%args,
+    );
+
+    $role->apply($consumer, %args);
 }
 
 sub apply_parameterizable_role {
@@ -110,7 +117,7 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 DESCRIPTION
 

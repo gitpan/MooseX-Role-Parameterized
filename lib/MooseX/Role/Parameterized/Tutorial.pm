@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Tutorial;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 confess "Don't use this module, read it!";
 
@@ -11,7 +11,7 @@ MooseX::Role::Parameterized::Tutorial - why and how
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 MOTIVATION
 

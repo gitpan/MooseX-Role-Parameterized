@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Moose (
     extends => { -as => 'moose_extends' },
@@ -189,7 +189,7 @@ MooseX::Role::Parameterized - parameterized roles
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

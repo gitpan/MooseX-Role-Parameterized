@@ -7,4 +7,4 @@ license: perl
 name: MooseX-Role-Parameterized
 requires: 
   Moose: 0.64
-version: 0.03
+version: 0.04
