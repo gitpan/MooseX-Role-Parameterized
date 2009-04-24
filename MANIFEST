@@ -29,3 +29,4 @@ t/015-compose-keywords.t
 t/016-trait.t
 t/100-erroneous-keywords.t
 t/101-alias-excludes.t
+t/150-composite-role-application.t

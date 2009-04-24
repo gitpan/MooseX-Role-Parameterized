@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Meta::Parameter;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Moose;
 extends 'Moose::Meta::Attribute';
@@ -21,6 +21,7 @@ around _process_options => sub {
 
 __PACKAGE__->meta->make_immutable(
     inline_constructor => 1,
+    replace_constructor => 1,
     constructor_name   => "_new",
 );
 no Moose;

@@ -2,9 +2,10 @@
 abstract: parameterized roles
 author: 
   - Shawn M Moore <sartak@bestpractical.com>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.003
+generated_by: Dist::Zilla::Plugin::MetaYaml version 1.004
 license: perl
 name: MooseX-Role-Parameterized
 requires: 
-  Moose: 0.64
-version: 0.04
+  Moose: 0.73
+  Test::Exception: 0.27
+version: 0.05

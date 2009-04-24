@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Moose;
 extends 'Moose::Meta::Role';
@@ -117,7 +117,7 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 DESCRIPTION
 

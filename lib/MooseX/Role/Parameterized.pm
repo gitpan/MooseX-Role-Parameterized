@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Moose (
     extends => { -as => 'moose_extends' },
@@ -37,7 +37,7 @@ sub parameter {
     }
 }
 
-sub role {
+sub role (&) {
     my $caller         = shift;
     my $role_generator = shift;
     Class::MOP::Class->initialize($caller)->role_generator($role_generator);
@@ -50,18 +50,6 @@ sub init_meta {
         metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterizable',
     );
 }
-
-# give role a (&) prototype
-moose_around _make_wrapper => sub {
-    my $orig = shift;
-    my ($self, $caller, $sub, $fq_name) = @_;
-
-    if ($fq_name =~ /::role$/) {
-        return sub (&) { $sub->($caller, @_) };
-    }
-
-    return $orig->(@_);
-};
 
 sub has {
     my $caller = shift;
@@ -189,7 +177,7 @@ MooseX::Role::Parameterized - parameterized roles
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -270,8 +258,28 @@ C<excludes> is an error.
 
 Shawn M Moore, C<< <sartak@bestpractical.com> >>
 
-=head1 SEE ALSO
+=head1 EXAMPLES
 
-L<MooseX::Role::Matcher>
+=over 4
+
+=item L<MooseX::Role::Matcher>
+
+=item L<MooseX::Role::RelatedClassRoles>
+
+=item L<MooseX::Role::XMLRPC::Client>
+
+=item L<WWW::Mechanize::TreeBuilder>
+
+=item L<TAEB::Action::Role::Item>
+
+=item L<KiokuDB::Role::Scan>
+
+=item L<Fey::Role::MakesAliasObjects>
+
+=item L<Fey::Role::HasAliasName>
+
+=item L<Fey::Role::SetOperation>
+
+=back
 
 =cut
