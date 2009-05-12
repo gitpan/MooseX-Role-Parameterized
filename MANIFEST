@@ -10,7 +10,7 @@ lib/MooseX/Role/Parameterized/Meta/Parameter.pm
 lib/MooseX/Role/Parameterized/Meta/Role/Parameterizable.pm
 lib/MooseX/Role/Parameterized/Meta/Role/Parameterized.pm
 lib/MooseX/Role/Parameterized/Parameters.pm
-lib/MooseX/Role/Parameterized/Tutorial.pm
+lib/MooseX/Role/Parameterized/Tutorial.pod
 t/001-parameters.t
 t/002-role-block.t
 t/003-apply.t

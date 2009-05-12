@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 7;
 use Test::Exception;
 
 do {
@@ -18,7 +18,7 @@ do {
         my $p = shift;
 
         has $p->attribute => (
-            is => 'Int',
+            is => 'rw',
         );
     };
 };
@@ -49,11 +49,8 @@ do {
          MyCompositeRoleB => { accessor  => 'bar' };
 };
 
-TODO: {
-    local $TODO = "role-role application for parameterized roles doesn't work yet";
-    ok(MyDoubleConsumer->can('foo'), 'first role in composite applied successfully');
-    ok(MyDoubleConsumer->can('bar'), 'second role in composite applied successfully');
-};
+ok(MyDoubleConsumer->can('foo'), 'first role in composite applied successfully');
+ok(MyDoubleConsumer->can('bar'), 'second role in composite applied successfully');
 
 do {
     package MyExtendingRole;
@@ -78,15 +75,13 @@ do {
 do {
     package MyExtendedConsumer;
     use Moose;
-    with MyCompositeRoleA => { attribute => 'bar' },
+    with MyCompositeRoleA => { attribute => 'baz' },
          MyExtendingRole  => { foo => 23 };
 };
 
-TODO: {
-    local $TODO = "role-role application for parameterized roles doesn't work yet";
-    ok(MyExtendedConsumer->can('bar'), 'role composed through other role applied successfully');
-    is(eval { MyExtendedConsumer->new->foo }, 23, 'role composing other role applied successfully');
-};;
+ok(MyExtendedConsumer->can('baz'), 'role composed directly applied successfully');
+ok(MyExtendedConsumer->can('bar'), 'role composed through other role applied successfully');
+is(eval { MyExtendedConsumer->new->foo }, 23, 'role composing other role applied successfully');
 
 do {
     package MyRoleProxy;
@@ -116,9 +111,6 @@ do {
     );
 };
 
-TODO: {
-    local $TODO = "role-role application for parameterized roles doesn't work yet";
-    ok(MyProxyConsumer->can('baz'), 'proxied role got applied successfully');
-    ok(MyProxyConsumer->can('qux'), 'other role besides proxied one got applied successfully');
-};
+ok(MyProxyConsumer->can('baz'), 'proxied role got applied successfully');
+ok(MyProxyConsumer->can('qux'), 'other role besides proxied one got applied successfully');
 

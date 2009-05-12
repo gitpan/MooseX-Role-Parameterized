@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized;
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose (
     extends => { -as => 'moose_extends' },
@@ -27,7 +27,7 @@ sub parameter {
     confess "'parameter' may not be used inside of the role block"
         if $CURRENT_METACLASS;
 
-    my $meta   = Class::MOP::Class->initialize($caller);
+    my $meta   = Class::MOP::class_of($caller);
 
     my $names = shift;
     $names = [$names] if !ref($names);
@@ -40,7 +40,7 @@ sub parameter {
 sub role (&) {
     my $caller         = shift;
     my $role_generator = shift;
-    Class::MOP::Class->initialize($caller)->role_generator($role_generator);
+    Class::MOP::class_of($caller)->role_generator($role_generator);
 }
 
 sub init_meta {
@@ -53,7 +53,7 @@ sub init_meta {
 
 sub has {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     my $names = shift;
     $names = [$names] if !ref($names);
@@ -65,7 +65,7 @@ sub has {
 
 sub method {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     my $name   = shift;
     my $body   = shift;
@@ -79,61 +79,46 @@ sub method {
     $meta->add_method($name => $method);
 }
 
-sub before {
+sub _add_method_modifier {
+    my $type   = shift;
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     my $code = pop @_;
 
     for (@_) {
         Carp::croak "Roles do not currently support "
             . ref($_)
-            . " references for before method modifiers"
+            . " references for $type method modifiers"
             if ref $_;
-        $meta->add_before_method_modifier($_, $code);
+
+        my $add_method = "add_${type}_method_modifier";
+        $meta->$add_method($_, $code);
     }
+}
+
+sub before {
+    _add_method_modifier('before', @_);
 }
 
 sub after {
-    my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
-
-    my $code = pop @_;
-
-    for (@_) {
-        Carp::croak "Roles do not currently support "
-            . ref($_)
-            . " references for after method modifiers"
-            if ref $_;
-        $meta->add_after_method_modifier($_, $code);
-    }
+    _add_method_modifier('after', @_);
 }
 
 sub around {
-    my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
-
-    my $code = pop @_;
-
-    for (@_) {
-        Carp::croak "Roles do not currently support "
-            . ref($_)
-            . " references for around method modifiers"
-            if ref $_;
-        $meta->add_around_method_modifier($_, $code);
-    }
+    _add_method_modifier('around', @_);
 }
 
 sub with {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     Moose::Util::apply_all_roles($meta, @_);
 }
 
 sub requires {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     Carp::croak "Must specify at least one method" unless @_;
     $meta->add_required_methods(@_);
@@ -141,7 +126,7 @@ sub requires {
 
 sub excludes {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     Carp::croak "Must specify at least one role" unless @_;
     $meta->add_excluded_roles(@_);
@@ -155,7 +140,7 @@ sub super {
 
 sub override {
     my $caller = shift;
-    my $meta   = $CURRENT_METACLASS || Class::MOP::Class->initialize($caller);
+    my $meta   = $CURRENT_METACLASS || Class::MOP::class_of($caller);
 
     my ($name, $code) = @_;
     $meta->add_override_method_modifier($name, $code);
@@ -177,7 +162,7 @@ MooseX::Role::Parameterized - parameterized roles
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -219,29 +204,43 @@ version 0.05
 =head1 L<MooseX::Role::Parameterized::Tutorial>
 
 B<Stop!> If you're new here, please read
-L<MooseX::Role::Parameterized::Tutorial>.
+L<MooseX::Role::Parameterized::Tutorial> for a much gentler introduction.
 
 =head1 DESCRIPTION
 
-Your parameterized role consists of two things: parameter declarations and a
-C<role> block.
+Your parameterized role consists of two new things: parameter declarations
+and a C<role> block.
 
 Parameters are declared using the L</parameter> keyword which very much
 resembles L<Moose/has>. You can use any option that L<Moose/has> accepts. The
-default value for the "is" option is "ro" as that's a very common case. These
+default value for the C<is> option is C<ro> as that's a very common case. These
 parameters will get their values when the consuming class (or role) uses
 L<Moose/with>. A parameter object will be constructed with these values, and
 passed to the C<role> block.
 
 The C<role> block then uses the usual L<Moose::Role> keywords to build up a
 role. You can shift off the parameter object to inspect what the consuming
-class provided as parameters. You can use the parameters to make your role
-customizable!
+class provided as parameters. You use the parameters to customize your
+role however you wish.
 
-There are many paths to parameterized roles (hopefully with a consistent enough
-API); I believe this to be the easiest and most flexible implementation.
-Coincidentally, Pugs has a very similar design (I'm not yet convinced that that
-is a good thing).
+There are many possible implementations for parameterized roles (hopefully with
+a consistent enough API); I believe this to be the easiest and most flexible
+design. Coincidentally, Pugs originally had an eerily similar design.
+
+=head2 Why a parameters object?
+
+I've been asked several times "Why use a parameter I<object> and not just a
+parameter I<hashref>? That would eliminate the need to explicitly declare your
+parameters."
+
+The benefits of using an object are similar to the benefits of using Moose. You
+get an easy way to specify lazy defaults, type constraint, delegation, and so
+on. You get to use MooseX modules.
+
+You also get the usual introspective and intercessory abilities that come
+standard with the metaobject protocol. Ambitious users should be able to add
+traits to the parameters metaclass to further customize behavior. Please let
+me know if you're doing anything viciously complicated with this extension. :)
 
 =head1 CAVEATS
 
@@ -251,7 +250,7 @@ return though you can use parameters I<in your methods>!
 
 L<Moose::Role/alias> and L<Moose::Role/excludes> are not yet supported. I'm
 completely unsure of whether they should be handled by this module. Until we
-figure out a plan, both declaring and providing a parameter named C<alias> or
+figure out a plan, either declaring or providing a parameter named C<alias> or
 C<excludes> is an error.
 
 =head1 AUTHOR
@@ -264,11 +263,13 @@ Shawn M Moore, C<< <sartak@bestpractical.com> >>
 
 =item L<MooseX::Role::Matcher>
 
-=item L<MooseX::Role::RelatedClassRoles>
-
 =item L<MooseX::Role::XMLRPC::Client>
 
+=item L<MooseX::RelatedClassRoles>
+
 =item L<WWW::Mechanize::TreeBuilder>
+
+=item L<NetHack::Item::Role::IncorporatesStats>
 
 =item L<TAEB::Action::Role::Item>
 

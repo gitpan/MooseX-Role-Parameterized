@@ -1,5 +1,5 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Moose;
 extends 'Moose::Meta::Role';
@@ -85,6 +85,15 @@ sub generate_role {
     return $role;
 }
 
+sub _role_for_combination {
+    my $self = shift;
+    my $parameters = shift;
+
+    return $self->generate_role(
+        parameters => $parameters,
+    );
+}
+
 sub apply {
     my $self     = shift;
     my $consumer = shift;
@@ -117,7 +126,7 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 DESCRIPTION
 
