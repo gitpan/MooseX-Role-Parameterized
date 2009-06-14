@@ -1,19 +1,15 @@
+# Load the Module::Install bundled in ./inc/
+use inc::Module::Install;
 
-use strict;
-use warnings;
+# Define metadata
+name           'MooseX-Role-Parameterized';
+all_from       'lib/MooseX/Role/Parameterized.pm';
+githubmeta;
 
-use ExtUtils::MakeMaker;
+requires       'Moose' => '0.78';
 
-WriteMakefile(
-  DISTNAME  => 'MooseX-Role-Parameterized',
-  NAME      => 'MooseX::Role::Parameterized',
-  AUTHOR    => 'Shawn\ M\ Moore\ \<sartak\@bestpractical\.com\>',
-  ABSTRACT  => 'parameterized roles',
-  VERSION   => '0.06',
-  EXE_FILES => [ qw() ],
-  (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
-  PREREQ_PM    => {
-    "Test::Exception" => '0.27',
-    "Moose" => '0.78',
-  },
-);
+build_requires 'Test::Exception' => '0.27';
+
+WriteAll;
+
+

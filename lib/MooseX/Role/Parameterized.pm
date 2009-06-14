@@ -1,20 +1,14 @@
 package MooseX::Role::Parameterized;
-our $VERSION = '0.06';
-
-use Moose (
-    extends => { -as => 'moose_extends' },
-    around  => { -as => 'moose_around' },
-    qw/confess blessed/,
-);
-moose_extends 'Moose::Exporter';
-
 use Moose::Role ();
+use Moose::Exporter;
+use Carp 'confess';
+use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
 our $CURRENT_METACLASS;
 
-__PACKAGE__->setup_import_methods(
+Moose::Exporter->setup_import_methods(
     with_caller => ['parameter', 'role', 'method', 'has', 'with', 'extends',
                     'requires', 'excludes', 'augment', 'inner', 'before',
                     'after', 'around', 'super', 'override'],
@@ -160,10 +154,6 @@ __END__
 
 MooseX::Role::Parameterized - parameterized roles
 
-=head1 VERSION
-
-version 0.06
-
 =head1 SYNOPSIS
 
     package MyRole::Counter;
@@ -255,7 +245,7 @@ C<excludes> is an error.
 
 =head1 AUTHOR
 
-Shawn M Moore, C<< <sartak@bestpractical.com> >>
+Shawn M Moore, C<sartak@gmail.com>
 
 =head1 EXAMPLES
 
@@ -283,4 +273,16 @@ Shawn M Moore, C<< <sartak@bestpractical.com> >>
 
 =back
 
+=head1 SEE ALSO
+
+L<http://sartak.blogspot.com/2009/05/parameterized-roles.html>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2007-2009 Infinity Interactive
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
 =cut
+

@@ -1,6 +1,4 @@
 package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
-our $VERSION = '0.06';
-
 use Moose;
 extends 'Moose::Meta::Role';
 
@@ -124,10 +122,6 @@ __END__
 
 MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for parameterizable roles
 
-=head1 VERSION
-
-version 0.06
-
 =head1 DESCRIPTION
 
 This is the metaclass for parameteriz-able roles, roles that have their
@@ -137,3 +131,4 @@ parameteriz-ed role
 (L<MooseX::Role::Parameterized::Meta::Role::Parameterized>).
 
 =cut
+

@@ -1,11 +1,27 @@
---- 
-abstract: parameterized roles
-author: 
-  - Shawn M Moore <sartak@bestpractical.com>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 1.004
-license: perl
-name: MooseX-Role-Parameterized
-requires: 
-  Moose: 0.78
+---
+abstract: 'parameterized roles'
+author:
+  - 'Shawn M Moore, C<sartak@gmail.com>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.27
-version: 0.06
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 0.91'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MooseX-Role-Parameterized
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  Moose: 0.78
+resources:
+  homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
+  license: http://dev.perl.org/licenses/
+  repository: git://github.com/sartak/MooseX-Role-Parameterized.git
+version: undef

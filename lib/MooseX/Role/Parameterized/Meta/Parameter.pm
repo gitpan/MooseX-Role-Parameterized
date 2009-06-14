@@ -1,6 +1,4 @@
 package MooseX::Role::Parameterized::Meta::Parameter;
-our $VERSION = '0.06';
-
 use Moose;
 extends 'Moose::Meta::Attribute';
 
@@ -34,10 +32,6 @@ __END__
 
 MooseX::Role::Parameterized::Meta::Parameter - metaclass for parameters
 
-=head1 VERSION
-
-version 0.06
-
 =head1 DESCRIPTION
 
 This is the metaclass for parameter objects, a subclass of
@@ -45,3 +39,4 @@ L<Moose::Meta::Attribute>. Its sole purpose is to make the default value
 of the C<is> option C<ro>.
 
 =cut
+
