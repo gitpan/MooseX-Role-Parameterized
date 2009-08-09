@@ -1,10 +1,11 @@
 ---
-abstract: 'parameterized roles'
+abstract: 'roles with composition parameters'
 author:
   - 'Shawn M Moore, C<sartak@gmail.com>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.27
+  Test::Moose: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -20,8 +21,9 @@ no_index:
     - t
 requires:
   Moose: 0.78
+  perl: 5.8.1
 resources:
   homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/MooseX-Role-Parameterized.git
-version: 0.10
+version: 0.11

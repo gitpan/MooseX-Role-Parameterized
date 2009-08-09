@@ -1,4 +1,5 @@
 package MooseX::Role::Parameterized;
+use 5.008001;
 use Moose::Role ();
 use Moose::Exporter;
 use Carp 'confess';
@@ -6,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -153,7 +154,7 @@ __END__
 
 =head1 NAME
 
-MooseX::Role::Parameterized - parameterized roles
+MooseX::Role::Parameterized - roles with composition parameters
 
 =head1 SYNOPSIS
 
@@ -181,16 +182,21 @@ MooseX::Role::Parameterized - parameterized roles
             $self->$name($self->$name + 1);
         };
 
-        method "decrement_$name" => sub {
+        method "reset_$name" => sub {
             my $self = shift;
-            $self->$name($self->$name - 1);
+            $self->$name(0);
         };
     };
 
-    package MyGame::Tile;
+    package MyGame::Weapon;
     use Moose;
 
-    with 'MyRole::Counter' => { name => 'stepped_on' };
+    with 'MyRole::Counter' => { name => 'enchantment' };
+
+    package MyGame::Wand;
+    use Moose;
+
+    with 'MyRole::Counter' => { name => 'zapped' };
 
 =head1 L<MooseX::Role::Parameterized::Tutorial>
 
@@ -252,31 +258,41 @@ Shawn M Moore, C<sartak@gmail.com>
 
 =over 4
 
+=item L<Fey::Role::HasAliasName>
+
+=item L<Fey::Role::MakesAliasObjects>
+
+=item L<Fey::Role::SQL::Cloneable>
+
+=item L<Fey::Role::SetOperation>
+
+=item L<IM::Engine::PluggableConstructor>
+
+=item L<IM::Engine::RequiresPlugins>
+
+=item L<KiokuDB::Role::Scan>
+
+=item L<MooseX::RelatedClassRoles>
+
 =item L<MooseX::Role::Matcher>
 
 =item L<MooseX::Role::XMLRPC::Client>
 
-=item L<MooseX::RelatedClassRoles>
-
-=item L<WWW::Mechanize::TreeBuilder>
+=item L<Net::Journyx::Object::Loadable>
 
 =item L<NetHack::Item::Role::IncorporatesStats>
 
 =item L<TAEB::Action::Role::Item>
 
-=item L<KiokuDB::Role::Scan>
-
-=item L<Fey::Role::MakesAliasObjects>
-
-=item L<Fey::Role::HasAliasName>
-
-=item L<Fey::Role::SetOperation>
+=item L<WWW::Mechanize::TreeBuilder>
 
 =back
 
 =head1 SEE ALSO
 
 L<http://sartak.blogspot.com/2009/05/parameterized-roles.html>
+
+L<http://stevan-little.blogspot.com/2009/07/thoughts-on-parameterized-roles.html>
 
 =head1 COPYRIGHT AND LICENSE
 
