@@ -7,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -160,7 +160,7 @@ MooseX::Role::Parameterized - roles with composition parameters
 
 =head1 SYNOPSIS
 
-    package MyRole::Counter;
+    package Counter;
     use MooseX::Role::Parameterized;
 
     parameter name => (
@@ -193,12 +193,12 @@ MooseX::Role::Parameterized - roles with composition parameters
     package MyGame::Weapon;
     use Moose;
 
-    with 'MyRole::Counter' => { name => 'enchantment' };
+    with Counter => { name => 'enchantment' };
 
     package MyGame::Wand;
     use Moose;
 
-    with 'MyRole::Counter' => { name => 'zapped' };
+    with Counter => { name => 'zapped' };
 
 =head1 L<MooseX::Role::Parameterized::Tutorial>
 
@@ -280,6 +280,8 @@ Shawn M Moore, C<sartak@gmail.com>
 
 =item L<MooseX::Role::XMLRPC::Client>
 
+=item L<MooseX::WithCache>
+
 =item L<Net::Journyx::Object::Loadable>
 
 =item L<NetHack::Item::Role::IncorporatesStats>
@@ -295,6 +297,8 @@ Shawn M Moore, C<sartak@gmail.com>
 L<http://sartak.blogspot.com/2009/05/parameterized-roles.html>
 
 L<http://stevan-little.blogspot.com/2009/07/thoughts-on-parameterized-roles.html>
+
+L<http://sartak.org/talks/yapc-asia-2009/(parameterized)-roles/>
 
 =head1 COPYRIGHT AND LICENSE
 
