@@ -6,6 +6,7 @@ build_requires:
   ExtUtils::MakeMaker: 6.42
   Test::Exception: 0.27
   Test::Moose: 0
+  Test::More: 0.88
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -26,4 +27,4 @@ resources:
   homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/MooseX-Role-Parameterized.git
-version: 0.13
+version: 0.14

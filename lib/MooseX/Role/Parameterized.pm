@@ -7,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -23,7 +23,7 @@ sub parameter {
     my $caller = shift;
 
     confess "'parameter' may not be used inside of the role block"
-        if $CURRENT_METACLASS;
+        if $CURRENT_METACLASS && $CURRENT_METACLASS->genitor->name eq $caller;
 
     my $meta   = Class::MOP::class_of($caller);
 

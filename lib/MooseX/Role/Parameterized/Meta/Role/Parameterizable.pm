@@ -10,7 +10,12 @@ use MooseX::Role::Parameterized::Parameters;
 
 use constant parameterized_role_metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterized';
 use constant parameter_metaclass => 'MooseX::Role::Parameterized::Meta::Parameter';
-use constant parameters_class => 'MooseX::Role::Parameterized::Parameters';
+
+has parameters_class => (
+    is      => 'ro',
+    isa     => 'ClassName',
+    default => 'MooseX::Role::Parameterized::Parameters',
+);
 
 has parameters_metaclass => (
     is      => 'rw',
@@ -23,6 +28,9 @@ has parameters_metaclass => (
             superclasses        => [$self->parameters_class],
             attribute_metaclass => $self->parameter_metaclass,
         );
+    },
+    handles => {
+        has_parameter => 'has_attribute',
     },
 );
 
@@ -71,7 +79,10 @@ sub generate_role {
     confess "A role generator is required to generate roles"
         unless $self->has_role_generator;
 
-    my $role = $self->parameterized_role_metaclass->create_anon_role(parameters => $parameters);
+    my $role = $self->parameterized_role_metaclass->create_anon_role(
+        genitor    => $self,
+        parameters => $parameters,
+    );
 
     local $MooseX::Role::Parameterized::CURRENT_METACLASS = $role;
 
@@ -131,6 +142,54 @@ parameters currently unbound. These are the roles that you use L<Moose/with>,
 but instead of composing the parameterizable role, we construct a new
 parameterized role
 (L<MooseX::Role::Parameterized::Meta::Role::Parameterized>).
+
+=head1 ATTRIBUTES
+
+=head2 parameters_class
+
+The name of the class that will be used to construct the parameters object.
+
+=head2 parameters_metaclass
+
+A metaclass representing this roles's parameters. It will be an anonymous
+subclass of L</parameters_class>. Each call to
+L<MooseX::Role::Parameters/parameter> adds an attribute to this metaclass.
+
+When this role is consumed, the parameters object will be instantiated using
+this metaclass.
+
+=head2 role_generator
+
+A code reference that is used to generate a role based on the parameters
+provided by the consumer. The user usually specifies it using the
+L<MooseX::Role::Parameterized/role> keyword.
+
+=head1 METHODS
+
+=head2 add_parameter $name, %options
+
+Basically delegates to L<Moose::Meta::Class/add_attribute> on the
+L</parameters_metaclass> but with error messages that refer to a "parameter"
+not an "attribute".
+
+=head2 construct_parameters %arguments
+
+Creates a new L<MooseX::Role::Parameterized::Parameters> object using metaclass
+L</parameters_metaclass>.
+
+The arguments are those specified by the consumer as parameter values.
+
+=head2 generate_role %arguments
+
+Returns a new instance of
+L<MooseX::Role::Parameterized::Meta::Role::Parameterized> based on the
+arguments. The arguments are a hash reference of C<parameters> and, if
+available, a C<consumer> metaobject.
+
+=head2 apply
+
+Overrides L<Moose::Meta::Role/apply> to automatically generate the
+parameterized role.
 
 =cut
 
