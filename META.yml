@@ -24,7 +24,5 @@ requires:
   Moose: 0.78
   perl: 5.8.1
 resources:
-  homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
   license: http://dev.perl.org/licenses/
-  repository: git://github.com/sartak/MooseX-Role-Parameterized.git
-version: 0.14
+version: 0.15
