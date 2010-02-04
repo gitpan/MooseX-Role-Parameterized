@@ -7,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -43,10 +43,10 @@ sub role (&) {
 
 sub init_meta {
     my $self = shift;
+    my %options = @_;
+    $options{metaclass} ||= 'MooseX::Role::Parameterized::Meta::Role::Parameterizable';
 
-    return Moose::Role->init_meta(@_,
-        metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterizable',
-    );
+    return Moose::Role->init_meta(%options);
 }
 
 sub has {
