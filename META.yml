@@ -4,9 +4,9 @@ author:
   - 'Shawn M Moore, C<sartak@gmail.com>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
-  Test::Exception: 0.27
+  Test::Fatal: 0
   Test::Moose: 0
-  Test::More: 0.88
+  Test::More: 0.96
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -27,4 +27,4 @@ resources:
   homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/MooseX-Role-Parameterized.git
-version: 0.21
+version: 0.22
