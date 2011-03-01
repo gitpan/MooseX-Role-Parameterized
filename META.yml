@@ -27,4 +27,4 @@ resources:
   homepage: http://github.com/sartak/MooseX-Role-Parameterized/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/sartak/MooseX-Role-Parameterized.git
-version: 0.23
+version: 0.24

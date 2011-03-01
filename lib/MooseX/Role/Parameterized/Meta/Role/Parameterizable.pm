@@ -2,7 +2,7 @@ package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 use Moose;
 extends 'Moose::Meta::Role';
 
-our $VERSION = '0.23';
+our $VERSION = '0.24';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterized;
 use MooseX::Role::Parameterized::Meta::Parameter;
@@ -105,7 +105,9 @@ sub generate_role {
         consumer     => $args{consumer},
     );
 
-    return $role;
+    # don't just return $role here, because it might have been changed when
+    # metaroles are applied
+    return $MooseX::Role::Parameterized::CURRENT_METACLASS;
 }
 
 sub _role_for_combination {

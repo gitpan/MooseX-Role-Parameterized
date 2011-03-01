@@ -38,6 +38,7 @@ t/016-trait.t
 t/017-current_metaclass.t
 t/018-parameter-roles.t
 t/019-custom-metaclass.t
+t/020-metaclass-reinitialize.t
 t/100-erroneous-keywords.t
 t/101-alias-excludes.t
 t/102-nested.t

@@ -7,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.23';
+our $VERSION = '0.24';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -261,13 +261,21 @@ Shawn M Moore, C<sartak@gmail.com>
 
 =head1 SEE ALSO
 
-L<http://sartak.blogspot.com/2009/05/parameterized-roles.html>
+L<http://sartak.org/2009/01/parametric-roles-in-perl-5.html>
+
+L<http://sartak.org/2009/05/the-design-of-parameterized-roles.html>
 
 L<http://stevan-little.blogspot.com/2009/07/thoughts-on-parameterized-roles.html>
 
+L<http://perldition.org/articles/Parameterized%20Roles%20with%20MooseX::Declare.pod>
+
+L<http://www.modernperlbooks.com/mt/2011/01/the-parametric-role-of-my-mvc-plugin-system.html>
+
+L<http://jjnapiorkowski.typepad.com/modern-perl/2010/08/parameterized-roles-and-method-traits-redo.html>
+
 L<http://sartak.org/talks/yapc-asia-2009/(parameterized)-roles/>
 
-L<http://perldition.org/articles/Parameterized%20Roles%20with%20MooseX::Declare.pod>
+L<https://github.com/SamuraiJack/JooseX-Role-Parameterized> - this extension ported to JavaScript's Joose
 
 =head1 COPYRIGHT AND LICENSE
 
