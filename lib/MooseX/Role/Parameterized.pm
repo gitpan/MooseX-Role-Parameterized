@@ -7,7 +7,7 @@ use Scalar::Util 'blessed';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 our $CURRENT_METACLASS;
 
 Moose::Exporter->setup_import_methods(
@@ -31,7 +31,10 @@ sub parameter {
     $names = [$names] if !ref($names);
 
     for my $name (@$names) {
-        $meta->add_parameter($name, @_);
+        $meta->add_parameter($name => (
+            is => 'ro',
+            @_,
+        ));
     }
 }
 
@@ -249,11 +252,6 @@ me know if you're doing anything viciously complicated with this extension. :)
 You must use this syntax to declare methods in the role block:
 C<< method NAME => sub { ... }; >>. This is due to a limitation in Perl. In
 return though you can use parameters I<in your methods>!
-
-L<Moose::Role/alias> and L<Moose::Role/excludes> are not yet supported. I'm
-completely unsure of whether they should be handled by this module. Until we
-figure out a plan, either declaring or providing a parameter named C<alias> or
-C<excludes> is an error.
 
 =head1 AUTHOR
 

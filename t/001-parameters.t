@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More;
 use Test::Fatal;
 
 use MooseX::Role::Parameterized::Parameters;
@@ -31,7 +31,6 @@ $parameters_metaclass = MyRole::LengthParameter->meta->parameters_metaclass;
 is($parameters_metaclass->get_all_attributes, 1, "exactly one parameter");
 
 my $parameter = ($parameters_metaclass->get_all_attributes)[0];
-isa_ok($parameter, 'MooseX::Role::Parameterized::Meta::Parameter');
 is($parameter->name, 'length', "parameter name");
 ok($parameter->is_required, "parameter is required");
 
@@ -70,4 +69,6 @@ for my $param_name ('first_name', 'last_name') {
     is($param->type_constraint, 'Str', "$param_name type constraint");
     ok(!$param->is_required, "$param_name is optional");
 }
+
+done_testing;
 

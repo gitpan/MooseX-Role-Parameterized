@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Test::More skip_all => "Not implemented yet";
-#use Test::More tests => 7;
+#use Test::More;
 
 {
     package Test::Role;
@@ -20,7 +20,6 @@ use Test::More skip_all => "Not implemented yet";
         method foo => sub { "hello " . $p->name };
 
         has blech => (
-            metaclass => "MooseX::Role::Parameterized::Meta::Parameter",
             isa => "Str",
             is  => "ro",
             required => 1,
@@ -59,3 +58,6 @@ can_ok( $p, "blech" );
 is( $p->blech, "yes" );
 
 is( $p->foo, "hello foo" );
+
+done_testing;
+

@@ -2,14 +2,12 @@ package MooseX::Role::Parameterized::Meta::Role::Parameterizable;
 use Moose;
 extends 'Moose::Meta::Role';
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 use MooseX::Role::Parameterized::Meta::Role::Parameterized;
-use MooseX::Role::Parameterized::Meta::Parameter;
 use MooseX::Role::Parameterized::Parameters;
 
 use constant parameterized_role_metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterized';
-use constant parameter_metaclass => 'MooseX::Role::Parameterized::Meta::Parameter';
 
 has parameters_class => (
     is      => 'ro',
@@ -25,8 +23,7 @@ has parameters_metaclass => (
         my $self = shift;
 
         $self->parameters_class->meta->create_anon_class(
-            superclasses        => [$self->parameters_class],
-            attribute_metaclass => $self->parameter_metaclass,
+            superclasses => [$self->parameters_class],
         );
     },
     handles => {
@@ -47,7 +44,6 @@ sub add_parameter {
     confess "You must provide a name for the parameter"
         if !defined($name);
 
-    # need to figure out a plan for these guys..
     confess "The parameter name ($name) is currently forbidden"
         if $name eq 'alias'
         || $name eq 'excludes';
@@ -59,7 +55,6 @@ sub construct_parameters {
     my $self = shift;
     my %args = @_;
 
-    # need to figure out a plan for these guys..
     for my $name ('alias', 'excludes') {
         confess "The parameter name ($name) is currently forbidden"
             if exists $args{$name};
