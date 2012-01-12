@@ -7,7 +7,11 @@ our $VERSION = '0.27';
 use MooseX::Role::Parameterized::Meta::Role::Parameterized;
 use MooseX::Role::Parameterized::Parameters;
 
-use constant parameterized_role_metaclass => 'MooseX::Role::Parameterized::Meta::Role::Parameterized';
+has parameterized_role_metaclass => (
+    is      => 'ro',
+    isa     => 'ClassName',
+    default => 'MooseX::Role::Parameterized::Meta::Role::Parameterized',
+);
 
 has parameters_class => (
     is      => 'ro',
@@ -19,15 +23,11 @@ has parameters_metaclass => (
     is      => 'rw',
     isa     => 'Moose::Meta::Class',
     lazy    => 1,
-    default => sub {
-        my $self = shift;
-
-        $self->parameters_class->meta->create_anon_class(
-            superclasses => [$self->parameters_class],
-        );
-    },
+    builder => '_build_parameters_metaclass',
     handles => {
-        has_parameter => 'has_attribute',
+        has_parameter        => 'has_attribute',
+        add_parameter        => 'add_attribute',
+        construct_parameters => 'new_object',
     },
 );
 
@@ -37,30 +37,12 @@ has role_generator => (
     predicate => 'has_role_generator',
 );
 
-sub add_parameter {
+sub _build_parameters_metaclass {
     my $self = shift;
-    my $name = shift;
 
-    confess "You must provide a name for the parameter"
-        if !defined($name);
-
-    confess "The parameter name ($name) is currently forbidden"
-        if $name eq 'alias'
-        || $name eq 'excludes';
-
-    $self->parameters_metaclass->add_attribute($name => @_);
-}
-
-sub construct_parameters {
-    my $self = shift;
-    my %args = @_;
-
-    for my $name ('alias', 'excludes') {
-        confess "The parameter name ($name) is currently forbidden"
-            if exists $args{$name};
-    }
-
-    $self->parameters_metaclass->new_object(\%args);
+    return $self->parameters_class->meta->create_anon_class(
+        superclasses => [$self->parameters_class],
+    );
 }
 
 sub generate_role {
@@ -146,13 +128,18 @@ MooseX::Role::Parameterized::Meta::Role::Parameterizable - metaclass for paramet
 
 =head1 DESCRIPTION
 
-This is the metaclass for parameterizable roles, roles that have their
-parameters currently unbound. These are the roles that you use L<Moose/with>,
-but instead of composing the parameterizable role, we construct a new
-parameterized role
-(L<MooseX::Role::Parameterized::Meta::Role::Parameterized>).
+This is the metaclass for parameterizable roles, roles that have
+their parameters currently unbound. These are the roles that you
+use L<Moose/with>, but instead of composing the parameterizable
+role, we construct a new parameterized role
+(L<MooseX::Role::Parameterized::Meta::Role::Parameterized>) and use
+that new parameterized instead.
 
 =head1 ATTRIBUTES
+
+=head2 parameterized_role_metaclass
+
+The name of the class that will be used to construct the parameterized role.
 
 =head2 parameters_class
 
@@ -177,9 +164,8 @@ L<MooseX::Role::Parameterized/role> keyword.
 
 =head2 add_parameter $name, %options
 
-Basically delegates to L<Moose::Meta::Class/add_attribute> on the
-L</parameters_metaclass> but with error messages that refer to a "parameter"
-not an "attribute".
+Delegates to L<Moose::Meta::Class/add_attribute> on the
+L</parameters_metaclass> object.
 
 =head2 construct_parameters %arguments
 
@@ -190,11 +176,27 @@ The arguments are those specified by the consumer as parameter values.
 
 =head2 generate_role %arguments
 
-Returns a new instance of
-L<MooseX::Role::Parameterized::Meta::Role::Parameterized> based on the
-arguments. The arguments are a hash reference of C<parameters> and, if
-available, a C<consumer> metaobject.  A C<package> argument may be given to use
-a specific package name instead of autogenerating one.
+This method generates and returns a new instance of
+L</parameterized_role_metaclass>. It can take any combination of
+three named parameters:
+
+=over 4
+
+=item arguments
+
+A hashref of parameters for the role, same as would be passed in at a "with"
+statement.
+
+=item package
+
+A package name that, if present, we will use for the generated role; if not,
+we generate an anonymous role.
+
+=item consumer
+
+A consumer metaobject, if available.
+
+=back
 
 =head2 apply
 
