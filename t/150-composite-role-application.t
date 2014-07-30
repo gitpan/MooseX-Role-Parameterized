@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -113,4 +112,3 @@ ok(MyProxyConsumer->can('baz'), 'proxied role got applied successfully');
 ok(MyProxyConsumer->can('qux'), 'other role besides proxied one got applied successfully');
 
 done_testing;
-

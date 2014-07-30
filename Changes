@@ -1,5 +1,15 @@
 Changes for MooseX-Role-Parameterized
 
+1.03 2014-07-30
+    * This extension is now implemented as a role metarole, which means it can
+      (mostly) cooperate with other role extensions, such as
+      MooseX::Role::WithOverloading. Note that you should load
+      MooseX::Role::Parameterized _after_ other extensions.
+    * This module no longer supports passing a "-metaclass" parameter when you
+      load it. This was an artifact from a much earlier era of Moose
+      extensions.
+    * repository migrated to the github moose organization
+
 1.02 September 11, 2013
     * set %INC entries in test to avoid failures with
       Moose pre-2.11 (kentfrederic)

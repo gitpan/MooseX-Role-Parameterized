@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -71,4 +70,3 @@ for my $param_name ('first_name', 'last_name') {
 }
 
 done_testing;
-

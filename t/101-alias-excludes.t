@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -62,4 +61,3 @@ is(OrdinaryClass->code, 'originally code');
 is(OrdinaryClass->new_code, 'originally code');
 
 done_testing;
-

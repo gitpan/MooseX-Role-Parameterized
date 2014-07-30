@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -57,4 +56,3 @@ is (exception {
 }, undef);
 
 done_testing;
-

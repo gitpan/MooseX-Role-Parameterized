@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -81,4 +80,3 @@ subtest "generating a role with a provided name" => sub {
 };
 
 done_testing;
-

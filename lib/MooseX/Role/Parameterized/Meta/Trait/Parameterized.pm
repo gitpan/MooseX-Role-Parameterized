@@ -1,14 +1,14 @@
 package MooseX::Role::Parameterized::Meta::Trait::Parameterized;
 use Moose::Role;
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 use MooseX::Role::Parameterized::Parameters;
 use Moose::Util 'find_meta';
 
 has genitor => (
     is       => 'ro',
-    isa      => 'MooseX::Role::Parameterized::Meta::Role::Parameterizable',
+    does     => 'MooseX::Role::Parameterized::Meta::Trait::Parameterizable',
     required => 1,
 );
 
@@ -67,4 +67,3 @@ Returns the L<MooseX::Role::Parameterized::Parameters> object that represents
 the specific parameter values for this parameterized role.
 
 =cut
-

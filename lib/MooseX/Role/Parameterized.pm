@@ -5,18 +5,26 @@ use Moose::Exporter;
 use Carp 'confess';
 use Moose::Util 'find_meta';
 
-use MooseX::Role::Parameterized::Meta::Role::Parameterizable;
+use MooseX::Role::Parameterized::Meta::Trait::Parameterizable;
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 our $CURRENT_METACLASS;
 
 sub current_metaclass { $CURRENT_METACLASS }
 
+my $meta_lookup = sub {
+    my $for = shift;
+    current_metaclass() || find_meta($for);
+};
+
 Moose::Exporter->setup_import_methods(
-    also        => 'Moose::Role',
-    with_caller => ['parameter', 'role'],
-    with_meta   => ['method'],
-    meta_lookup => sub { current_metaclass || find_meta(shift) },
+    also           => 'Moose::Role',
+    with_caller    => [ 'parameter', 'role' ],
+    with_meta      => [ 'method', 'with' ],
+    meta_lookup    => $meta_lookup,
+    role_metaroles => {
+        role => ['MooseX::Role::Parameterized::Meta::Trait::Parameterizable'],
+    },
 );
 
 sub parameter {
@@ -48,14 +56,6 @@ sub role (&) {
     find_meta($caller)->role_generator($role_generator);
 }
 
-sub init_meta {
-    my $self = shift;
-    my %options = @_;
-    $options{metaclass} ||= 'MooseX::Role::Parameterized::Meta::Role::Parameterizable';
-
-    return Moose::Role->init_meta(%options);
-}
-
 sub method {
     my $meta = shift;
     my $name = shift;
@@ -69,6 +69,12 @@ sub method {
 
     $meta->add_method($name => $method);
 }
+
+sub with {
+    local $CURRENT_METACLASS = undef;
+    Moose::Role::with(@_);
+}
+
 
 1;
 
@@ -200,4 +206,3 @@ This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 =cut
-

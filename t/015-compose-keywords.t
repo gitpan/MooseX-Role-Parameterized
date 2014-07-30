@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -48,4 +47,3 @@ for my $meta (MyRole->meta, MyRole->meta->generate_role) {
 }
 
 done_testing;
-

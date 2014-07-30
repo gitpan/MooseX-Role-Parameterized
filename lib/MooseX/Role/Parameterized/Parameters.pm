@@ -1,7 +1,7 @@
 package MooseX::Role::Parameterized::Parameters;
 use Moose;
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -27,4 +27,3 @@ Each parameterized role gets their own instance of the anonymous subclass
 (owned by the parameterizable role).
 
 =cut
-

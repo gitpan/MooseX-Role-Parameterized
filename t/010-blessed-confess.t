@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -11,4 +10,3 @@ do {
 };
 
 done_testing;
-

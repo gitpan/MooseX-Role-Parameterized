@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More;
@@ -27,4 +26,3 @@ cmp_ok(
 );
 
 done_testing;
-

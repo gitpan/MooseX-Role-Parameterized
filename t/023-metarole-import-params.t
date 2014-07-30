@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use Test::More skip_all => "Not implemented yet";
@@ -76,4 +75,3 @@ is($meta->get_attribute('name')->label, 'TODO!');
 is($meta->get_attribute('body')->label, 'nevermind...');
 
 done_testing;
-
