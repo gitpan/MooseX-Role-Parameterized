@@ -1,11 +1,14 @@
 package MooseX::Role::Parameterized::Meta::Trait::Parameterizable;
+BEGIN {
+  $MooseX::Role::Parameterized::Meta::Trait::Parameterizable::AUTHORITY = 'cpan:SARTAK';
+}
+# ABSTRACT: trait for parameterizable roles
+$MooseX::Role::Parameterized::Meta::Trait::Parameterizable::VERSION = '1.04';
 use Moose::Role;
-
-our $VERSION = '1.03';
-
 use MooseX::Role::Parameterized::Meta::Role::Parameterized;
 use MooseX::Role::Parameterized::Parameters;
 use Module::Runtime 'use_module';
+use namespace::autoclean;
 
 has parameterized_role_metaclass => (
     is      => 'ro',
@@ -115,15 +118,21 @@ around apply => sub {
     $role->apply($consumer, %args);
 };
 
-no Moose::Role;
-
 1;
 
 __END__
 
+=pod
+
+=encoding UTF-8
+
 =head1 NAME
 
-MooseX::Role::Parameterized::Meta::Role::Parameterizable - trait for parameterizable roles
+MooseX::Role::Parameterized::Meta::Trait::Parameterizable - trait for parameterizable roles
+
+=head1 VERSION
+
+version 1.04
 
 =head1 DESCRIPTION
 
@@ -146,7 +155,7 @@ The name of the class that will be used to construct the parameters object.
 
 =head2 parameters_metaclass
 
-A metaclass representing this roles's parameters. It will be an anonymous
+A metaclass representing this role's parameters. It will be an anonymous
 subclass of L</parameters_class>. Each call to
 L<MooseX::Role::Parameters/parameter> adds an attribute to this metaclass.
 
@@ -193,6 +202,8 @@ we generate an anonymous role.
 
 =item consumer
 
+=for stopwords metaobject
+
 A consumer metaobject, if available.
 
 =back
@@ -201,5 +212,16 @@ A consumer metaobject, if available.
 
 Overrides L<Moose::Meta::Role/apply> to automatically generate the
 parameterized role.
+
+=head1 AUTHOR
+
+Shawn M Moore <code@sartak.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2008 by Shawn M Moore.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
