@@ -3,7 +3,7 @@ BEGIN {
   $MooseX::Role::Parameterized::Parameters::AUTHORITY = 'cpan:SARTAK';
 }
 # ABSTRACT: base class for parameters
-$MooseX::Role::Parameterized::Parameters::VERSION = '1.04';
+$MooseX::Role::Parameterized::Parameters::VERSION = '1.05';
 use Moose;
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -22,7 +22,7 @@ MooseX::Role::Parameterized::Parameters - base class for parameters
 
 =head1 VERSION
 
-version 1.04
+version 1.05
 
 =head1 DESCRIPTION
 

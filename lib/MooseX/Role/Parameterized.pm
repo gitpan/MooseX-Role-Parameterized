@@ -2,8 +2,8 @@ package MooseX::Role::Parameterized;
 BEGIN {
   $MooseX::Role::Parameterized::AUTHORITY = 'cpan:SARTAK';
 }
-# git description: v1.03-13-gfe69c8f
-$MooseX::Role::Parameterized::VERSION = '1.04';
+# git description: v1.04-3-g1748a07
+$MooseX::Role::Parameterized::VERSION = '1.05';
 # ABSTRACT: roles with composition parameters
 
 use 5.008001;
@@ -97,7 +97,7 @@ MooseX::Role::Parameterized - roles with composition parameters
 
 =head1 VERSION
 
-version 1.04
+version 1.05
 
 =head1 SYNOPSIS
 

@@ -23,7 +23,7 @@ configure_requires:
   ExtUtils::MakeMaker: '0'
   Module::Build::Tiny: '0.037'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -36,19 +36,19 @@ no_index:
 provides:
   MooseX::Role::Parameterized:
     file: lib/MooseX/Role/Parameterized.pm
-    version: '1.04'
+    version: '1.05'
   MooseX::Role::Parameterized::Meta::Role::Parameterized:
     file: lib/MooseX/Role/Parameterized/Meta/Role/Parameterized.pm
-    version: '1.04'
+    version: '1.05'
   MooseX::Role::Parameterized::Meta::Trait::Parameterizable:
     file: lib/MooseX/Role/Parameterized/Meta/Trait/Parameterizable.pm
-    version: '1.04'
+    version: '1.05'
   MooseX::Role::Parameterized::Meta::Trait::Parameterized:
     file: lib/MooseX/Role/Parameterized/Meta/Trait/Parameterized.pm
-    version: '1.04'
+    version: '1.05'
   MooseX::Role::Parameterized::Parameters:
     file: lib/MooseX/Role/Parameterized/Parameters.pm
-    version: '1.04'
+    version: '1.05'
 requires:
   Carp: '0'
   Module::Runtime: '0'
@@ -66,10 +66,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=MooseX-Role-Parameterized
   homepage: https://github.com/moose/MooseX-Role-Parameterized
   repository: https://github.com/moose/MooseX-Role-Parameterized.git
-version: '1.04'
+version: '1.05'
 x_Dist_Zilla:
   perl:
-    version: '5.021001'
+    version: '5.016003'
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
@@ -455,7 +455,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::Remote::Check
       name: '@Author::ETHER/Git::Remote::Check'
-      version: 0.2.0
+      version: 0.1.2
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Author::ETHER/CheckPrereqsIndexed'
@@ -520,7 +520,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v1.04
+          tag: v1.05
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local
@@ -607,10 +607,6 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::FinderCode
       name: ':NoFiles'
       version: '5.020'
-    -
-      class: Dist::Zilla::Plugin::VerifyPhases
-      name: '@Author::ETHER/PHASE VERIFICATION'
-      version: '0.003'
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
