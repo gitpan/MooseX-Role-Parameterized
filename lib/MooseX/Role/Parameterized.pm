@@ -2,8 +2,8 @@ package MooseX::Role::Parameterized;
 BEGIN {
   $MooseX::Role::Parameterized::AUTHORITY = 'cpan:SARTAK';
 }
-# git description: v1.04-3-g1748a07
-$MooseX::Role::Parameterized::VERSION = '1.05';
+# git description: v1.05-1-g2c0fb49
+$MooseX::Role::Parameterized::VERSION = '1.06';
 # ABSTRACT: roles with composition parameters
 
 use 5.008001;
@@ -17,11 +17,11 @@ use MooseX::Role::Parameterized::Meta::Trait::Parameterizable;
 
 our $CURRENT_METACLASS;
 
-sub _current_metaclass { $CURRENT_METACLASS }
+sub current_metaclass { $CURRENT_METACLASS }
 
 my $meta_lookup = sub {
     my $for = shift;
-    _current_metaclass() || find_meta($for);
+    current_metaclass() || find_meta($for);
 };
 
 Moose::Exporter->setup_import_methods(
@@ -38,7 +38,7 @@ sub parameter {
     my $caller = shift;
 
     confess "'parameter' may not be used inside of the role block"
-        if _current_metaclass && _current_metaclass->genitor->name eq $caller;
+        if current_metaclass && current_metaclass->genitor->name eq $caller;
 
     my $meta = find_meta($caller);
 
@@ -58,7 +58,7 @@ sub role (&) {
     my $role_generator = shift;
 
     confess "'role' may not be used inside of the role block"
-        if _current_metaclass && _current_metaclass->genitor->name eq $caller;
+        if current_metaclass && current_metaclass->genitor->name eq $caller;
 
     find_meta($caller)->role_generator($role_generator);
 }
@@ -97,7 +97,7 @@ MooseX::Role::Parameterized - roles with composition parameters
 
 =head1 VERSION
 
-version 1.05
+version 1.06
 
 =head1 SYNOPSIS
 
@@ -175,7 +175,7 @@ The benefits of using an object are similar to the benefits of using Moose. You
 get an easy way to specify lazy defaults, type constraint, delegation, and so
 on. You get to use MooseX modules.
 
-=for Pod::Coverage method parameter role with
+=for Pod::Coverage current_metaclass method parameter role with
 
 =head1 L<MooseX::Role::Parameterized::Tutorial>
 

@@ -108,23 +108,23 @@
    "provides" : {
       "MooseX::Role::Parameterized" : {
          "file" : "lib/MooseX/Role/Parameterized.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       },
       "MooseX::Role::Parameterized::Meta::Role::Parameterized" : {
          "file" : "lib/MooseX/Role/Parameterized/Meta/Role/Parameterized.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       },
       "MooseX::Role::Parameterized::Meta::Trait::Parameterizable" : {
          "file" : "lib/MooseX/Role/Parameterized/Meta/Trait/Parameterizable.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       },
       "MooseX::Role::Parameterized::Meta::Trait::Parameterized" : {
          "file" : "lib/MooseX/Role/Parameterized/Meta/Trait/Parameterized.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       },
       "MooseX::Role::Parameterized::Parameters" : {
          "file" : "lib/MooseX/Role/Parameterized/Parameters.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       }
    },
    "release_status" : "stable",
@@ -142,7 +142,7 @@
       "x_IRC" : "irc://irc.perl.org/#moose",
       "x_MailingList" : "http://lists.perl.org/list/moose.html"
    },
-   "version" : "1.05",
+   "version" : "1.06",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.016003"
@@ -735,7 +735,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "v1.05",
+                  "tag" : "v1.06",
                   "tag_format" : "v%v%t",
                   "tag_message" : "v%v%t",
                   "time_zone" : "local"

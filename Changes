@@ -1,5 +1,9 @@
 Revision history for MooseX-Role-Parameterized
 
+1.06      2014-08-02 04:34:06Z
+    - Restored MooseX::Role::Parameterized->current_metaclass as a public
+      method. Apparently there is code on CPAN that relies on this.
+
 1.05      2014-07-31 18:26:03Z
     - If a parameterizable role was reinitialized after any parameters or a
       role block was declared, those declarations were lost. Reinitialization

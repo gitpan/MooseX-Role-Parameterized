@@ -63,7 +63,7 @@ EOW
         "Shawn M Moore <code\@sartak.org>"
       ],
       "dist_name" => "MooseX-Role-Parameterized",
-      "dist_version" => "1.05",
+      "dist_version" => "1.06",
       "license" => "perl",
       "module_name" => "MooseX::Role::Parameterized",
       "recommends" => {},
