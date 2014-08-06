@@ -9,7 +9,6 @@ META.json
 META.yml
 Makefile.PL
 README
-README.pod
 dist.ini
 lib/MooseX/Role/Parameterized.pm
 lib/MooseX/Role/Parameterized/Extending.pod

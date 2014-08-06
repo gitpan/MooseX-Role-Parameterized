@@ -6,10 +6,8 @@ build_requires:
   Data::Dumper: '0'
   ExtUtils::MakeMaker: '0'
   File::Spec: '0'
-  List::Util: '0'
   Moose::Util::TypeConstraints: '0'
   MooseX::Role::WithOverloading: '0'
-  Scalar::Util: '0'
   Storable: '0'
   Test::Fatal: '0'
   Test::Moose: '0'
@@ -23,7 +21,14 @@ configure_requires:
   ExtUtils::MakeMaker: '0'
   Module::Build::Tiny: '0.037'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
+keywords:
+  - moose
+  - extension
+  - parameter
+  - role
+  - arguments
+  - dynamic
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -36,19 +41,19 @@ no_index:
 provides:
   MooseX::Role::Parameterized:
     file: lib/MooseX/Role/Parameterized.pm
-    version: '1.06'
+    version: '1.07'
   MooseX::Role::Parameterized::Meta::Role::Parameterized:
     file: lib/MooseX/Role/Parameterized/Meta/Role/Parameterized.pm
-    version: '1.06'
+    version: '1.07'
   MooseX::Role::Parameterized::Meta::Trait::Parameterizable:
     file: lib/MooseX/Role/Parameterized/Meta/Trait/Parameterizable.pm
-    version: '1.06'
+    version: '1.07'
   MooseX::Role::Parameterized::Meta::Trait::Parameterized:
     file: lib/MooseX/Role/Parameterized/Meta/Trait/Parameterized.pm
-    version: '1.06'
+    version: '1.07'
   MooseX::Role::Parameterized::Parameters:
     file: lib/MooseX/Role/Parameterized/Parameters.pm
-    version: '1.06'
+    version: '1.07'
 requires:
   Carp: '0'
   Module::Runtime: '0'
@@ -66,10 +71,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=MooseX-Role-Parameterized
   homepage: https://github.com/moose/MooseX-Role-Parameterized
   repository: https://github.com/moose/MooseX-Role-Parameterized.git
-version: '1.06'
+version: '1.07'
 x_Dist_Zilla:
   perl:
-    version: '5.016003'
+    version: '5.021001'
   plugins:
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
@@ -172,7 +177,7 @@ x_Dist_Zilla:
             - ':ExecFiles'
             - '@Author::ETHER/Examples'
       name: '@Author::ETHER/Test::Compile'
-      version: '2.043'
+      version: '2.044'
     -
       class: Dist::Zilla::Plugin::Test::NoTabs
       config:
@@ -224,7 +229,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Test::ReportPrereqs
       name: '@Author::ETHER/Test::ReportPrereqs'
-      version: '0.017'
+      version: '0.018'
     -
       class: Dist::Zilla::Plugin::Test::Portability
       name: '@Author::ETHER/Test::Portability'
@@ -316,7 +321,7 @@ x_Dist_Zilla:
             -
               class: Pod::Weaver::Section::Contributors
               name: Contributors
-              version: '0.007'
+              version: 0.007_001
       name: '@Author::ETHER/PodWeaver'
       version: '4.005'
     -
@@ -326,7 +331,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ReadmeAnyFromPod
       name: '@Author::ETHER/ReadmeAnyFromPod'
-      version: '0.141760'
+      version: '0.142180'
     -
       class: Dist::Zilla::Plugin::GithubMeta
       name: '@Author::ETHER/GithubMeta'
@@ -364,6 +369,13 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::Keywords
       name: '@Author::ETHER/Keywords'
       version: '0.005'
+    -
+      class: Dist::Zilla::Plugin::Git::Contributors
+      config:
+        Dist::Zilla::Plugin::Git::Contributors:
+          include_authors: '0'
+      name: '@Author::ETHER/Git::Contributors'
+      version: '0.002'
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Author::ETHER/AutoPrereqs'
@@ -419,8 +431,12 @@ x_Dist_Zilla:
       version: '0.007'
     -
       class: Dist::Zilla::Plugin::Run::AfterBuild
+      config:
+        Dist::Zilla::Plugin::Run::Role::Runner:
+          run:
+            - "bash -c \"if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi\""
       name: '@Author::ETHER/Run::AfterBuild'
-      version: '0.022'
+      version: '0.023'
     -
       class: Dist::Zilla::Plugin::CheckStrictVersion
       name: '@Author::ETHER/CheckStrictVersion'
@@ -455,7 +471,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Git::Remote::Check
       name: '@Author::ETHER/Git::Remote::Check'
-      version: 0.1.2
+      version: 0.2.0
     -
       class: Dist::Zilla::Plugin::CheckPrereqsIndexed
       name: '@Author::ETHER/CheckPrereqsIndexed'
@@ -491,8 +507,12 @@ x_Dist_Zilla:
       version: '0.001'
     -
       class: Dist::Zilla::Plugin::Run::AfterRelease
-      name: '@Author::ETHER/Run::AfterRelease'
-      version: '0.022'
+      config:
+        Dist::Zilla::Plugin::Run::Role::Runner:
+          run:
+            - 'rm -f README.md'
+      name: '@Author::ETHER/remove old READMEs'
+      version: '0.023'
     -
       class: Dist::Zilla::Plugin::Git::Commit
       config:
@@ -520,7 +540,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v1.06
+          tag: v1.07
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local
@@ -544,9 +564,12 @@ x_Dist_Zilla:
       name: '@Author::ETHER/Git::Push'
       version: '2.023'
     -
-      class: Dist::Zilla::Plugin::InstallRelease
-      name: '@Author::ETHER/InstallRelease'
-      version: '0.008'
+      class: Dist::Zilla::Plugin::Run::AfterRelease
+      config:
+        Dist::Zilla::Plugin::Run::Role::Runner:
+          run: REDACTED
+      name: '@Author::ETHER/install release'
+      version: '0.023'
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Author::ETHER/ConfirmRelease'
@@ -563,10 +586,6 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::MetaResources
       name: MetaResources
       version: '5.020'
-    -
-      class: Dist::Zilla::Plugin::ContributorsFromGit
-      name: ContributorsFromGit
-      version: '0.014'
     -
       class: Dist::Zilla::Plugin::Test::CheckBreaks
       name: Test::CheckBreaks
@@ -607,6 +626,10 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::FinderCode
       name: ':NoFiles'
       version: '5.020'
+    -
+      class: Dist::Zilla::Plugin::VerifyPhases
+      name: '@Author::ETHER/PHASE VERIFICATION'
+      version: '0.003'
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
@@ -614,7 +637,7 @@ x_Dist_Zilla:
     version: '5.020'
 x_authority: cpan:SARTAK
 x_contributors:
-  - 'Chris Weyl <rsrchboy@cpan.org>'
+  - 'Chris Weyl <cweyl@alumni.drew.edu>'
   - 'Csson <erik.carlsson@live.com>'
   - 'Dave Rolsky <autarch@urth.org>'
   - 'Florian Ragwitz <rafl@debian.org>'

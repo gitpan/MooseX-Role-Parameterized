@@ -1,5 +1,8 @@
 Revision history for MooseX-Role-Parameterized
 
+1.07      2014-08-06 05:44:11Z
+    - re-release to remove README.pod from shipped dist
+
 1.06      2014-08-02 04:34:06Z
     - Restored MooseX::Role::Parameterized->current_metaclass as a public
       method. Apparently there is code on CPAN that relies on this.

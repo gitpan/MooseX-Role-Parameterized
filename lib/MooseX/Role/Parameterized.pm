@@ -2,9 +2,10 @@ package MooseX::Role::Parameterized;
 BEGIN {
   $MooseX::Role::Parameterized::AUTHORITY = 'cpan:SARTAK';
 }
-# git description: v1.05-1-g2c0fb49
-$MooseX::Role::Parameterized::VERSION = '1.06';
+# git description: v1.06-3-gc3ce56c
+$MooseX::Role::Parameterized::VERSION = '1.07';
 # ABSTRACT: roles with composition parameters
+# KEYWORDS: moose extension parameter role arguments dynamic
 
 use 5.008001;
 use Moose 2.0300 ();
@@ -97,7 +98,7 @@ MooseX::Role::Parameterized - roles with composition parameters
 
 =head1 VERSION
 
-version 1.06
+version 1.07
 
 =head1 SYNOPSIS
 
@@ -228,11 +229,13 @@ the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
 
+=for stopwords Chris Weyl Csson Dave Rolsky Florian Ragwitz Jesse Luehrs Karen Etheridge Oliver Charles Ricardo Signes Robert 'phaylon' Sedlacek Todd Hepler Yuval Kogman
+
 =over 4
 
 =item *
 
-Chris Weyl <rsrchboy@cpan.org>
+Chris Weyl <cweyl@alumni.drew.edu>
 
 =item *
 
