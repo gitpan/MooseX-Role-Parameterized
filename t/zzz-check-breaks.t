@@ -13,6 +13,23 @@ SKIP: {
     pass 'conflicts checked via Moose::Conflicts';
 }
 
-pass 'no x_breaks data to check';
+my $breaks = {
+  "MooseX::Storage" => "<= 0.46"
+};
+
+use CPAN::Meta::Requirements;
+my $reqs = CPAN::Meta::Requirements->new;
+$reqs->add_string_requirement($_, $breaks->{$_}) foreach keys %$breaks;
+
+use CPAN::Meta::Check 0.007 'check_requirements';
+our $result = check_requirements($reqs, 'conflicts');
+
+if (my @breaks = grep { defined $result->{$_} } keys %$result)
+{
+    diag 'Breakages found with MooseX-Role-Parameterized:';
+    diag "$result->{$_}" for sort @breaks;
+    diag "\n", 'You should now update these modules!';
+}
+
 
 done_testing;

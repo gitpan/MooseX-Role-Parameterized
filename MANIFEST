@@ -50,6 +50,7 @@ t/lib/Bar.pm
 t/zzz-check-breaks.t
 weaver.ini
 xt/author/00-compile.t
+xt/author/no-tabs.t
 xt/release/changes_has_content.t
 xt/release/clean-namespaces.t
 xt/release/cpan-changes.t
@@ -58,7 +59,6 @@ xt/release/eol.t
 xt/release/kwalitee.t
 xt/release/minimum-version.t
 xt/release/mojibake.t
-xt/release/no-tabs.t
 xt/release/pod-coverage.t
 xt/release/pod-syntax.t
 xt/release/portability.t

@@ -64,7 +64,7 @@ EOW
         "Shawn M Moore <code\@sartak.org>"
       ],
       "dist_name" => "MooseX-Role-Parameterized",
-      "dist_version" => "1.07",
+      "dist_version" => "1.08",
       "license" => "perl",
       "module_name" => "MooseX::Role::Parameterized",
       "recommends" => {},
@@ -83,6 +83,8 @@ EOW
       },
       "script_files" => [],
       "test_requires" => {
+        "CPAN::Meta::Check" => "0.007",
+        "CPAN::Meta::Requirements" => 0,
         "Data::Dumper" => 0,
         "ExtUtils::MakeMaker" => 0,
         "File::Spec" => 0,
@@ -102,6 +104,8 @@ EOW
 
 
     my %fallback_build_requires = (
+      "CPAN::Meta::Check" => "0.007",
+      "CPAN::Meta::Requirements" => 0,
       "Data::Dumper" => 0,
       "ExtUtils::MakeMaker" => 0,
       "File::Spec" => 0,
